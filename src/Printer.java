@@ -1,18 +1,21 @@
+import figures.*;
+import shape.Shape;
+
 public class Printer {
     public static void main(String[] args) {
-     Circle circle = new Circle();
-     circle.print();
+        Shape[] s = new Shape[]{
+                new Circle(),
+                new Ellipse("myEllipse"),
+                new Rectangle(),
+                new Square(),
+                new Triangle()};
 
-     Ellipse ellipse = new Ellipse();
-     ellipse.print();
+        for (Shape shape: s) {
+            printName(shape);
+        }
+    }
 
-     Rectangle rectangle = new Rectangle();
-     rectangle.print();
-
-     Square square = new Square();
-     square.print();
-
-     Triangle triangle = new Triangle();
-     triangle.print();
+    public static void printName(Shape s) {
+        System.out.println(s.getName());
     }
 }
