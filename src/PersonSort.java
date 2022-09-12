@@ -1,38 +1,42 @@
 public class PersonSort {
-    Person[] people = PersonGenerator.createPerson();
+    public interface Sorter {
+        int get(Person p);
+    }
 
-    private int partition(int begin, int end, int sortBy) {
-        int pivot = people[end].paramGetter(sortBy);
+    Person[] people = PersonGenerator.createPerson(10000);
+
+    private int partition(int begin, int end, Sorter sorter) {
+        int pivot = sorter.get(people[end]);
         int i = (begin - 1);
 
         for (int j = begin; j < end; j++) {
-            if (people[j].paramGetter(sortBy) <= pivot) {
+            if (sorter.get(people[j]) <= pivot) {
                 i++;
 
-                int swapTemp = people[i].paramGetter(sortBy);
-                people[i].paramSetter(sortBy, people[j].paramGetter(sortBy));
-                people[j].paramSetter(sortBy, swapTemp);
+                var tmp = people[i];
+                people[i] = people[j];
+                people[j] = tmp;
             }
         }
 
-        int swapTemp = people[i + 1].paramGetter(sortBy);
-        people[i + 1].paramSetter(sortBy, people[end].paramGetter(sortBy));
-        people[end].paramSetter(sortBy, swapTemp);
+        var tmp = people[i + 1];
+        people[i + 1] = people[end];
+        people[end] = tmp;
 
         return i + 1;
     }
 
-    public void quickSort(int begin, int end, int sortBy) {
+    public void quickSort(int begin, int end, Sorter sorter) {
         if (begin < end) {
-            int partitionIndex = partition(begin, end, sortBy);
+            int partitionIndex = partition(begin, end, sorter);
 
-            quickSort(begin, partitionIndex - 1, sortBy);
-            quickSort(partitionIndex + 1, end, sortBy);
+            quickSort(begin, partitionIndex - 1, sorter);
+            quickSort(partitionIndex + 1, end, sorter);
         }
     }
 
     public int getUniqueValues() {
-        quickSort(0, people.length - 1, 1);
+        quickSort(0, people.length - 1, Person::getWeight);
         int maxHeight = 300;
         int i = 0;
         int counter = 0;

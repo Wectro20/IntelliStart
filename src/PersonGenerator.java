@@ -1,9 +1,8 @@
 import java.util.Random;
 
 public class PersonGenerator {
-    static Person[] p = new Person[1000];
-
-    public static Person[] createPerson() {
+    public static Person[] createPerson(int count) {
+        Person[] p = new Person[count];
         Random r = new Random();
         for (int i = 0; i < p.length; i++) {
             p[i] = new Person(

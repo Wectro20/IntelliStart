@@ -4,7 +4,7 @@ import java.io.PrintWriter;
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         PersonSort personSort = new PersonSort();
-        personSort.quickSort(0, personSort.people.length - 1, 1);
+        personSort.quickSort(0, personSort.people.length - 1, Person::getWeight);
         PrintWriter out = new PrintWriter("sortedPeople.txt");
         for (int i = 0; i < personSort.people.length; i++) {
             out.println(personSort.people[i]);
